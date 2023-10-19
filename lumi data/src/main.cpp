@@ -13,10 +13,7 @@
 #include <TaskScheduler.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
-#include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit_TSL2561_U.h>
-#include <iostream>
+
 
 unsigned long lastDataSendTime = 0;
 const unsigned long sendDataInterval = 10000;
@@ -233,7 +230,7 @@ void handleStartSetup() {
   secondPostBody["macAddress"] = WiFi.macAddress();
 
   HTTPClient http;
-  http.begin("https://staging.sensys-iot.com/api/devices/v1/sentinel/onboarding/add/sensor");
+  http.begin("https://api-stage.sensys-iot.com/api/devices/v1/sentinel/onboarding/add/sensor");
   http.addHeader("Content-Type", "application/json");
 
   String secondPostBodyString;
@@ -491,7 +488,7 @@ void refreshToken() {
 
   String uuid = EEPROM.readString(uuidAddress);
 
-  String refreshUrl = "https://staging.sensys-iot.com/api/data/v1/sentinel/devices/refresh/token/" + uuid;
+  String refreshUrl = "https://api-stage.sensys-iot.com/api/data/v1/sentinel/devices/refresh/token/" + uuid;
 
   String authHeader = "Bearer " + token;
 
@@ -538,7 +535,7 @@ void generateToken() {
 
   String uuid = EEPROM.readString(uuidAddress);
 
-  String refreshUrl = "https://staging.sensys-iot.com/api/data/v1/sentinel/devices/generate/token/" + uuid;
+  String refreshUrl = "https://api-stage.sensys-iot.com/api/data/v1/sentinel/devices/generate/token/" + uuid;
 
   String authHeader = "Bearer " + token;
 
